@@ -21,6 +21,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './reducers';
+import { ForecastComponent } from './components/forecast/forecast.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { ListComponent } from './components/list/list.component';
 
 const materialModules = [
   MatSidenavModule,
@@ -34,7 +43,9 @@ const materialModules = [
   MatInputModule,
   MatSelectModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatChipsModule,
+  MatDialogModule
 ];
 @NgModule({
   declarations: [
@@ -42,14 +53,20 @@ const materialModules = [
     NavComponent,
     DashboardComponent,
     TodoEntryComponent,
-    ActionsComponent
+    ActionsComponent,
+    ForecastComponent,
+    InboxComponent,
+    ProjectsComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ...materialModules,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [],
   bootstrap: [AppComponent]
