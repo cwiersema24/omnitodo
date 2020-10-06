@@ -1,5 +1,5 @@
-import { ActionReducerMap, createSelector } from '@ngrx/store';
-import { ProjectListModel, TodoListModel } from '../models';
+import { ActionReducerMap, createSelector, props } from '@ngrx/store';
+import { PerspectiveModel, ProjectListModel, TodoListModel } from '../models';
 import { ProjectListItemModel } from '../models/ptoject-list-item.model';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
@@ -43,10 +43,25 @@ const selectTodoListItemsUnfiltered = createSelector(
     });
   }
 );
-
+export const selectProjectTodoList = createSelector(
+  selectTodoListItemsUnfiltered,
+  selectProjectItems,
+  (todos, projects, props) => {
+    const pName = projects[props.id].name;
+    return {
+      perspectiveName: pName + ' Project',
+      items: todos.filter(todo => todo.project === pName)
+    } as PerspectiveModel;
+  }
+);
 export const selectInboxTodoList = createSelector(
   selectTodoListItemsUnfiltered,
-  (todos) => todos.filter(isInboxItem)
+  (todos) => {
+    return {
+      perspectiveName: 'Inbox',
+      items: todos.filter(isInboxItem)
+    } as PerspectiveModel;
+  }
 );
 
 function isInboxItem(todo: TodoListModel): boolean {

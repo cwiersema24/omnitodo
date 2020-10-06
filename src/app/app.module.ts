@@ -30,10 +30,15 @@ import { ForecastComponent } from './components/forecast/forecast.component';
 import { InboxComponent } from './components/inbox/inbox.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { ListComponent } from './components/list/list.component';
+import { DateOrPipe } from './pipes/date-or';
+import { DatePipe } from '@angular/common';
+import { StringOrPipe } from './pipes/string-or';
 
 const materialModules = [
+  MatDialogModule,
   MatSidenavModule,
   MatToolbarModule,
+  MatChipsModule,
   MatListModule,
   MatIconModule,
   MatCardModule,
@@ -43,9 +48,7 @@ const materialModules = [
   MatInputModule,
   MatSelectModule,
   MatDatepickerModule,
-  MatNativeDateModule,
-  MatChipsModule,
-  MatDialogModule
+  MatNativeDateModule
 ];
 @NgModule({
   declarations: [
@@ -57,7 +60,9 @@ const materialModules = [
     ForecastComponent,
     InboxComponent,
     ProjectsComponent,
-    ListComponent
+    ListComponent,
+    DateOrPipe,
+    StringOrPipe
   ],
   imports: [
     BrowserModule,
