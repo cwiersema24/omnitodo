@@ -1,5 +1,6 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
-import { ProjectListModel } from '../models';
+import { ProjectListModel, TodoListModel } from '../models';
+import { ProjectListItemModel } from '../models/ptoject-list-item.model';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
 export interface AppState {
@@ -15,7 +16,7 @@ export const reducers: ActionReducerMap<AppState> = {
 const selectProjectBranch = (state: AppState) => state.projects;
 const selectTodosBranch = (state: AppState) => state.todos;
 
-const { selectAll: selectAllProjectEntities } = fromProjects.adapter.getSelectors(selectProjectBranch);
+const { selectAll: selectAllProjectEntities, selectEntities: selectProjectItems } = fromProjects.adapter.getSelectors(selectProjectBranch);
 const { selectAll: selectAllTodoEntities } = fromTodos.adapter.getSelectors(selectTodosBranch);
 const selectAllIncompleteTodoEntities = createSelector(
   selectAllTodoEntities,
@@ -27,5 +28,42 @@ export const selectProjectListModel = createSelector(
 );
 export const selectInboxCount = createSelector(
   selectAllIncompleteTodoEntities,
-  (todos) => todos.filter(t => t.dueDate === null && t.project === null).length
+  (todos) => todos.filter(isInboxItem).length
+);
+const selectTodoListItemsUnfiltered = createSelector(
+  selectAllIncompleteTodoEntities,
+  selectProjectItems,
+  (todos, projects) => {
+    return todos.map(todo => {
+
+      return {
+        ...todo,
+        project: !todo.project ? null : projects[todo.project].name
+      } as TodoListModel;
+    });
+  }
+);
+
+export const selectInboxTodoList = createSelector(
+  selectTodoListItemsUnfiltered,
+  (todos) => todos.filter(isInboxItem)
+);
+
+function isInboxItem(todo: TodoListModel): boolean {
+  return !todo.dueDate && !todo.project;
+}
+
+
+export const selectProjectListWithCount = createSelector(
+  selectAllIncompleteTodoEntities,
+  selectAllProjectEntities,
+  (todos, projects) => {
+    return projects.map(project => {
+      const numberOfItemsWithThatProject = todos.filter(todo => todo.project === project.id).length;
+      return {
+        ...project,
+        numberOfProjects: numberOfItemsWithThatProject
+      } as ProjectListItemModel;
+    });
+  }
 );

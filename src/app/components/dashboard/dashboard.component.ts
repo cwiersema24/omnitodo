@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showInbox(): void {
-    const dlg = this.dialogService.open(ListComponent, { disableClose: false });
+    const dlg = this.dialogService.open(ListComponent, { disableClose: false, data: { perspective: 'Inbox' } });
     dlg.afterClosed().subscribe(() => this.router.navigate(['dashboard']));
   }
 
