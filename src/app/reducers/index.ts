@@ -3,18 +3,22 @@ import { PerspectiveModel, ProjectListModel, TodoListModel } from '../models';
 import { ProjectListItemModel } from '../models/ptoject-list-item.model';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
+import * as fromAuth from './auth.reducer';
 export interface AppState {
   projects: fromProjects.ProjectState;
   todos: fromTodos.TodoState;
+  auth: fromAuth.AuthState;
 
 }
 export const reducers: ActionReducerMap<AppState> = {
   projects: fromProjects.reducer,
-  todos: fromTodos.reducer
+  todos: fromTodos.reducer,
+  auth: fromAuth.reducer
 };
 
 const selectProjectBranch = (state: AppState) => state.projects;
 const selectTodosBranch = (state: AppState) => state.todos;
+const selectAuthBranch = (state: AppState) => state.auth;
 
 const { selectAll: selectAllProjectEntities, selectEntities: selectProjectItems } = fromProjects.adapter.getSelectors(selectProjectBranch);
 const { selectAll: selectAllTodoEntities } = fromTodos.adapter.getSelectors(selectTodosBranch);
@@ -82,3 +86,18 @@ export const selectProjectListWithCount = createSelector(
     });
   }
 );
+
+export const selectAuthIsLoggedIn = createSelector(
+  selectAuthBranch,
+  b => b.isLoggedIn
+);
+export const selectAuthUserName = createSelector(
+  selectAuthBranch,
+  b => b.username
+);
+export const selectAuthToken = createSelector(
+  selectAuthBranch,
+  b => b.token
+);
+
+

@@ -20,6 +20,30 @@ export const todoAdded = createAction(
   })
 );
 
+export const todoAddedSuccessfully = createAction(
+  '[todos] todo added successfully',
+  props<{ oldId: string, payload: TodoEntity }>()
+);
+export const todoAddedFailure = createAction(
+  '[todos] todo added failure',
+  props<{ message: string, payload: TodoEntity }>()
+);
+
+export const loadTodos = createAction(
+  '[todos] load todo data'
+);
+
+export const loadDataSucceeded = createAction(
+  '[todos] loaded data successfully',
+  props<{ payload: TodoEntity[] }>()
+);
+
+export const loadDataFailure = createAction(
+  '[todos] loading data failed',
+  props<{ message: string }>()
+);
+
+
 interface TodoCreate {
   name: string;
   dueDate?: string;
