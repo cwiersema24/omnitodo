@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { todoCompleted } from 'src/app/actions/todo-actions';
+import { todoCompleted, todoUnCompleted } from 'src/app/actions/todo-actions';
 import { PerspectiveModel, TodoListModel } from 'src/app/models';
 import { AppState, selectInboxTodoList, selectProjectTodoList } from 'src/app/reducers';
 import { TodoEntity } from 'src/app/reducers/todos.reducer';
@@ -43,6 +43,9 @@ export class ListComponent implements OnInit {
 
   markCompleted(payload: TodoEntity): void {
     this.store.dispatch(todoCompleted({ payload }));
+  }
+  markUnCompleted(payload: TodoEntity): void {
+    this.store.dispatch(todoUnCompleted({ payload }));
   }
 
 }

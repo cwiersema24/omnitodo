@@ -15,3 +15,8 @@ export const loginFailed = createAction(
   '[todos auth] login failed',
   props<{ message: string }>()
 );
+
+export const logout = createAction(
+  '[todos auth] Logging out',
+  props<{ payload: { token: string } }>()
+);

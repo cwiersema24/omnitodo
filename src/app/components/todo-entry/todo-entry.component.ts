@@ -34,7 +34,7 @@ export class TodoEntryComponent implements OnInit {
     this.bottomSheetRef.dismiss();
   }
   submit(): void {
-    console.log(this.form.value);
+    // console.log(this.form.value);
     this.store.dispatch(todoAdded({ ...this.form.value }));
     this.bottomSheetRef.dismiss();
   }

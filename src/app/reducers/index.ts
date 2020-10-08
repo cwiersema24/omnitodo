@@ -4,6 +4,7 @@ import { ProjectListItemModel } from '../models/ptoject-list-item.model';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
 import * as fromAuth from './auth.reducer';
+import { todoUnCompleted } from '../actions/todo-actions';
 export interface AppState {
   projects: fromProjects.ProjectState;
   todos: fromTodos.TodoState;
@@ -31,11 +32,13 @@ export const selectProjectListModel = createSelector(
   items => items as ProjectListModel[]
 );
 export const selectInboxCount = createSelector(
-  selectAllIncompleteTodoEntities,
-  (todos) => todos.filter(isInboxItem).length
+  selectAllTodoEntities,
+  // selectAllIncompleteTodoEntities,
+  (todos) => todos.filter(isInboxItemCount).length
 );
 const selectTodoListItemsUnfiltered = createSelector(
-  selectAllIncompleteTodoEntities,
+  selectAllTodoEntities,
+  // selectAllIncompleteTodoEntities,
   selectProjectItems,
   (todos, projects) => {
     return todos.map(todo => {
@@ -70,6 +73,9 @@ export const selectInboxTodoList = createSelector(
 
 function isInboxItem(todo: TodoListModel): boolean {
   return !todo.dueDate && !todo.project;
+}
+function isInboxItemCount(todo: TodoListModel): boolean {
+  return !todo.dueDate && !todo.project && !todo.completed;
 }
 
 

@@ -19,8 +19,14 @@
         <td> {{ item.project | stringOr: 'No Project'}} </td>
         <td>
           <button mat-button
+                  *ngIf="!(item.completed)"
                   (click)="markCompleted(item)">
             <mat-icon>radio_button_unchecked</mat-icon>
+          </button>
+          <button mat-button
+                  *ngIf="(item.completed)"
+                  (click)="markUnCompleted(item)">
+            <mat-icon>radio_button_checked</mat-icon>
           </button>
         </td>
       </tr>

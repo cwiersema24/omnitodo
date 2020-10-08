@@ -14,6 +14,18 @@ export class AuthEffects {
 
   private authUrl = environment.authUrl;
 
+  logoutRedirect$ = createEffect(() =>
+    this.actions$.pipe(ofType(authActions.logout),
+      tap(() => this.router.navigate(['login']))
+    ), { dispatch: false }
+  );
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.logout),
+      map(response => authActions.logout({ payload: { token: null } }))
+    ), { dispatch: false }
+  );
+
   loadTodos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authActions.loginSucceeded),

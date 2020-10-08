@@ -39,6 +39,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from '../app/effects/auth.effects';
 import { TodoEffects } from './effects/todos.effects';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { ProjectEntryComponent } from './components/project-entry/project-entry.component';
 
 const materialModules = [
   MatDialogModule,
@@ -69,7 +70,8 @@ const materialModules = [
     ListComponent,
     DateOrPipe,
     StringOrPipe,
-    LoginComponent
+    LoginComponent,
+    ProjectEntryComponent
   ],
   imports: [
     HttpClientModule,

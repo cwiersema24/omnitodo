@@ -15,12 +15,13 @@ const initialState: AuthState = {
 
 const reducerFunction = createReducer(
   initialState,
-  on(actions.loginRequested, actions.loginFailed, () => initialState),
+  on(actions.loginRequested, actions.loginFailed, actions.logout, () => initialState),
   on(actions.loginSucceeded, (s, a) => ({
     isLoggedIn: true,
     username: a.payload.username,
     token: a.payload.token
-  }))
+  })),
+
 );
 
 export function reducer(state: AuthState, action: Action): AuthState {

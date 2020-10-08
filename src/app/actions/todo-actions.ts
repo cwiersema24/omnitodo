@@ -7,6 +7,10 @@ export const todoCompleted = createAction(
   '[Todos] todo completed',
   props<{ payload: TodoEntity }>()
 );
+export const todoUnCompleted = createAction(
+  '[Todos] todo uncompleted',
+  props<{ payload: TodoEntity }>()
+);
 export const todoAdded = createAction(
   '[todos] todo added',
   ({ name, dueDate, project }: TodoCreate) => ({
