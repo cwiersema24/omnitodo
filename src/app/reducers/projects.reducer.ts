@@ -1,5 +1,6 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, Action } from '@ngrx/store';
+import { createReducer, Action, on } from '@ngrx/store';
+import * as actions from '../actions/todo-actions';
 
 export interface ProjectEntity {
   id: string;
@@ -24,7 +25,13 @@ const initialState: ProjectState = {
 };
 
 const reducerFunction = createReducer(
-  initialState
+  initialState,
+  on(actions.projectToAdd, (oldState, action) => adapter.addOne(action.payload, oldState)),
+  on(actions.projectAddedSuccessfully, (oldState, action) => {
+    const tempState = adapter.removeOne(action.oldId, oldState);
+    return adapter.addOne(action.payload, tempState);
+  }),
+  on(actions.projectAddFailure, (oldState, action) => adapter.removeOne(action.payload.id, oldState))
 );
 
 export function reducer(state: ProjectState = initialState, action: Action) {

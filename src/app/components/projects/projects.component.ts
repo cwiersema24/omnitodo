@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ProjectListItemModel } from 'src/app/models/ptoject-list-item.model';
@@ -10,6 +10,7 @@ import { AppState, selectProjectListWithCount } from 'src/app/reducers';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
+  @Input() projectNumber: string;
   items$: Observable<ProjectListItemModel[]>;
   constructor(private store: Store<AppState>) { }
 

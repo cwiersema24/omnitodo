@@ -2,17 +2,18 @@
   <div class="field-container">
     <mat-form-field hintLabel="Max of 200 characters"
                     appearance='fill'>
-      <mat-label>Enter your Task</mat-label>
+      <mat-label>Project to Add</mat-label>
       <input matInput
              formControlName="project"
-             placeholder="Take out the trash">
+             placeholder="Project to Add">
       <mat-hint align="end">
         <span *ngIf="project.errors?.maxlength">This is too long. Make it less than
           {{project.errors.maxlength.requiredLength}}</span>
       </mat-hint>
     </mat-form-field>
   </div>
-  <button mat-button
+  <button type="button"
+          mat-button
           [disabled]="form.invalid"
-          (click)="submit()">Submit</button>
+          (click)="submit()">Add Project</button>
 </form>

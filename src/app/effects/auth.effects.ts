@@ -22,7 +22,7 @@ export class AuthEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authActions.logout),
-      map(response => authActions.logout({ payload: { token: null } }))
+      tap(() => this.router.navigate(['login']))
     ), { dispatch: false }
   );
 

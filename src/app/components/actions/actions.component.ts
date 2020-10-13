@@ -24,7 +24,7 @@ export class ActionsComponent implements OnInit {
     this.bottomSheet.open(TodoEntryComponent, config);
   }
   logout(): void {
-    this.store.dispatch(logout({ payload: null }));
+    this.store.dispatch(logout());
   }
 
 }
