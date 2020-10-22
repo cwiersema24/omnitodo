@@ -4,6 +4,21 @@ import { TodoEntity } from '../reducers/todos.reducer';
 
 let currentId = 1;
 
+export const projectUpdate = createAction(
+  '[todos] project updated',
+  props<{ payload: { id: string, newProjectName: string, oldProjectName: string } }>()
+);
+export const dueDateUpdated = createAction(
+  '[todos] due date updated',
+  ({ id, newDate, oldDate }) => ({
+    payload: {
+      id,
+      oldDate,
+      newDate
+    }
+  })
+);
+
 export const todoCompleted = createAction(
   '[Todos] todo completed',
   props<{ payload: TodoEntity }>()

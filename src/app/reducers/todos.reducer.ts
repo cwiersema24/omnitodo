@@ -49,7 +49,18 @@ const reducerFunction = createReducer(
       completed: true
     }
   }, oldState)),
-
+  on(actions.projectUpdate, (oldState, action) => adapter.updateOne({
+    id: action.payload.id,
+    changes: {
+      project: action.payload.newProjectName
+    }
+  }, oldState)),
+  on(actions.dueDateUpdated, (oldState, action) => adapter.updateOne({
+    id: action.payload.id,
+    changes: {
+      dueDate: action.payload.newDate
+    }
+  }, oldState)),
 );
 
 export function reducer(state: TodoState = initialState, action: Action) {

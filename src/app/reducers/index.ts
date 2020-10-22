@@ -72,10 +72,10 @@ export const selectInboxTodoList = createSelector(
 );
 
 function isInboxItem(todo: TodoListModel): boolean {
-  return !todo.dueDate && !todo.project;
+  return !todo.dueDate || !todo.project;
 }
 function isInboxItemCount(todo: TodoListModel): boolean {
-  return !todo.dueDate && !todo.project && !todo.completed;
+  return !todo.dueDate || !todo.project && !todo.completed;
 }
 
 
